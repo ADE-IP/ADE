@@ -18,95 +18,36 @@ permissions:
   contents: read
 
 jobs:
-  buildandtest:
-    name: Build and Test
-    runs-on: gtp-nonprod
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run build job
-        uses: ./.github/actions/funapp/build
-
-  # ================= DEV =================
-  deploy-dev:
-    name: Deploy Bicep - Dev
-    if: github.ref == 'refs/heads/pt-github' && github.event.inputs.RunOnEnvironment == 'Development'
-    runs-on: gtp-nonprod
-    needs: buildandtest
-    environment: pt-dev
+  deploy:
+    name: Deploy Bicep
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 🔐 Login to Azure
+      # 🔐 Azure Login (OIDC)
       - name: Azure Login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # 🔍 Optional - Validate before deploy
+      - name: Validate Bicep
+        run: |
+          az deployment sub validate \
+            --location westeurope \
+            --template-file customer-stamp/main.bicep \
+            --parameters @customer-stamp/parameters.json
 
       # 🚀 Deploy Bicep
-      - name: Deploy Bicep (Dev)
+      - name: Deploy Bicep
         run: |
           az deployment sub create \
-            --name main-dev-deployment \
-            --location eastus \
-            --template-file main.bicep \
-            --parameters @parameters/dev.json
-
-  # ================= PRE =================
-  deploy-pre:
-    name: Deploy Bicep - Pre
-    if: github.ref == 'refs/heads/main' && github.event.inputs.RunOnEnvironment == 'Pre-Production'
-    runs-on: gtp-nonprod
-    needs: buildandtest
-    environment: pt-pre
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Deploy Bicep (Pre)
-        run: |
-          az deployment sub create \
-            --name main-pre-deployment \
-            --location eastus \
-            --template-file main.bicep \
-            --parameters @parameters/pre.json
-
-  # ================= PROD =================
-  deploy-prd:
-    name: Deploy Bicep - Prod
-    if: github.ref == 'refs/heads/main' && github.event.inputs.RunOnEnvironment == 'Production'
-    runs-on: gtp-prod
-    needs: buildandtest
-    environment: pt-prd
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Deploy Bicep (Prod)
-        run: |
-          az deployment sub create \
-            --name main-prd-deployment \
-            --location eastus \
-            --template-file main.bicep \
-            --parameters @parameters/prd.json
+            --name main-${{ github.run_id }} \
+            --location westeurope \
+            --template-file customer-stamp/main.bicep \
+            --parameters @customer-stamp/parameters.json \
+            --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}

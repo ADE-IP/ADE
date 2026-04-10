@@ -1,65 +1,60 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-
-        "rgname": {
-            "value": "$(rgName)"
-        },
-        "sharedrgName":{
-            "value": "$(sharedrgName)"
-        },
-        "vnetname": {
-            "value": "$(vnet)"
-        },
-        "addressPrefix": {
-            "value": "$(addressPrefix)"
-        },
-        "devcentername": {
-            "value": "$(devcenter)"
-        },
-        "catalogName":{
-            "value": "catalog"
-        },
-        "catalogRepoUri":{
-            "value": "https://github.com/avl-sdv/DevOpsPilot.SiL.Workflows.git"
-        },
-        "catalogTasksName":{
-            "value": "CustomizationTasksCatalog"
-        },
-        "catalogTasksRepoUri":{
-            "value": "https://github.com/avl-sdv/DevOpsPilot.DevBox.CustomizationTasksCatalog.git"
-        },
-        "environmentName":{
-            "value": "sandbox"
-        },
-        "law":{
-            "value": "$(law)"
-        },
-        "location": {
-            "value": "westeurope"
-        },
-        "tags": {
-            "value": {
-                "infra": "customer"
-            }
-        },    
-        "catalogRepoPat": {
-            "value": "$(catalogRepoPat)"
-            
-        },
-        "privateDnsZoneName": {
-            "value": "avl.lnk"
-          },
-        "privateLinkServiceId": {
-            "value": "$(privateLinkServiceAlias)"
-        },
-        "privateEndpointName":{
-            "value": "$(privateEndpointName_license_server)"
-        },
-        "privateDnsRecordName":{
-            "value": "license"
-        }
-
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "rgname": {
+      "value": "rg-jmpcourt-dev01"
+    },
+    "vnetname": {
+      "value": "vnet-jmpcourt-dev01"
+    },
+    "addressPrefix": {
+      "value": "10.10.0.0/16"
+    },
+    "devcentername": {
+      "value": "dc-jmpcourt-dev01"
+    },
+    "catalogName": {
+      "value": "catalog"
+    },
+    "catalogRepoUri": {
+      "value": "https://github.com/avl-sdv/DevOpsPilot.SiL.Workflows.git"
+    },
+    "catalogTasksName": {
+      "value": "CustomizationTasksCatalog"
+    },
+    "catalogTasksRepoUri": {
+      "value": "https://github.com/avl-sdv/DevOpsPilot.DevBox.CustomizationTasksCatalog.git"
+    },
+    "environmentName": {
+      "value": "sandbox"
+    },
+    "law": {
+      "value": "law-jmpcourt-dev01"
+    },
+    "location": {
+      "value": "westeurope"
+    },
+    "tags": {
+      "value": {
+        "infra": "customer",
+        "env": "dev"
+      }
+    },
+    "catalogRepoPat": {
+      "value": "REPLACE_WITH_SECURE_PAT"
+    },
+    "privateDnsZoneName": {
+      "value": "avl.lnk"
+    },
+    "privateLinkServiceId": {
+      "value": "/subscriptions/<subscription-id>/resourceGroups/<rg>/providers/Microsoft.Network/privateLinkServices/<pls-name>"
+    },
+    "privateEndpointName": {
+      "value": "pe-license-dev01"
+    },
+    "privateDnsRecordName": {
+      "value": "license"
     }
+  }
 }

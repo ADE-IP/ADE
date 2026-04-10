@@ -1,7 +1,7 @@
 //Assigns the Devcenter identity the permission to read secrets
 param keyVaultName string
-param sharedrgName string
-param sharedsubscriptionid string
+param rgname string
+param subscriptionid string
 param managedid string = 'Computegalleryid'
 //param userAssignedIdentityId string 
 
@@ -10,7 +10,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-11-01-preview' existing = {
 }
 
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
-  scope: resourceGroup(sharedsubscriptionid,sharedrgName)
+  scope: resourceGroup(subscriptionid,rgname)
   name: managedid
 }
 //output userAssignedIdentityId string = managedIdentity.properties.principalId

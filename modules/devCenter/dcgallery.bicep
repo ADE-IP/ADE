@@ -1,9 +1,9 @@
 param devcentername string
-param sharedsubscriptionid string
-param sharedrgName string
+param subscriptionid string
+param rgname string
 param ComputeGalleryName string
 //param ComputeGalleryName string = 'xmew1dopsstampdcomputegallery001'
-param galleryResourceId string = '/subscriptions/${sharedsubscriptionid}/resourceGroups/${sharedrgName}/providers/Microsoft.Compute/galleries/${ComputeGalleryName}'
+param galleryResourceId string = '/subscriptions/${subscriptionid}/resourceGroups/${rgname}/providers/Microsoft.Compute/galleries/${ComputeGalleryName}'
 
 // DevCenter Galleries
 resource galleries 'Microsoft.DevCenter/devcenters/galleries@2023-04-01' = {
