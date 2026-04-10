@@ -38,7 +38,7 @@ jobs:
       - name: Validate Bicep
         run: |
           az deployment sub validate \
-            --location westeurope \
+            --location australiaeast \
             --template-file customer-stamp/main.bicep \
             --parameters @customer-stamp/parameters.json
 
@@ -47,7 +47,7 @@ jobs:
         run: |
           az deployment sub create \
             --name main-${{ github.run_id }} \
-            --location westeurope \
+            --location australiaeast \
             --template-file customer-stamp/main.bicep \
             --parameters @customer-stamp/parameters.json \
             --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}
