@@ -18,7 +18,6 @@ param DNSlocation string = 'global'
 param privateEndpointName string
 param privateLinkServiceId string
 param privateDnsRecordName string
-param ComputeGalleryName string
 param subscriptionid string
 
 @secure()
@@ -116,18 +115,6 @@ module dc '../modules/devCenter/devCenter.bicep' = {
   }
 }
 
- module dcgallery '../modules/devCenter/dcgallery.bicep' = {
-   scope: resourceGroup(rgname)
-   name: 'dcgallerydeploy'
-   params: {
-     devcentername: devcentername
-     ComputeGalleryName: ComputeGalleryName
-     //ComputeGalleryName: 'xmew1dopsstampdcomputegallery001'
-     rgname: rgname
-     subscriptionid: subscriptionid
-   }
-   dependsOn:[dc,ade]
- }
 
  module ade '../modules/catalog/catalog.bicep' = {
    scope: resourceGroup(rgname)
