@@ -18,9 +18,8 @@ param DNSlocation string = 'global'
 param privateEndpointName string
 param privateLinkServiceId string
 param privateDnsRecordName string
-param sharedrgName string
-param sharedsubscriptionid string
 param ComputeGalleryName string
+param subscriptionid string
 
 @secure()
 @description('A PAT token is required, even for public repos')
@@ -94,8 +93,8 @@ module rg '../modules/resource-group/deploy.bicep' = {
    name: '${deployment().name}-managedId-rbac'
    params: {
      keyVaultName: kv.outputs.keyVaultName
-     sharedrgName: sharedrgName
-     sharedsubscriptionid: sharedsubscriptionid
+     rgname: rgname
+     subscriptionid: subscriptionid
    }
    dependsOn: [
     dc
@@ -108,10 +107,10 @@ module dc '../modules/devCenter/devCenter.bicep' = {
   name: devcentername
   params: {
     devcentername: devcentername
-    sharedrgName: sharedrgName
+    rgname: rgname
     location: location
     law: law
-    sharedsubscriptionid: sharedsubscriptionid
+    subscriptionid: subscriptionid
     //type: type
     //existingImageGalleryName: existingImageGalleryName
   }
@@ -124,8 +123,8 @@ module dc '../modules/devCenter/devCenter.bicep' = {
      devcentername: devcentername
      ComputeGalleryName: ComputeGalleryName
      //ComputeGalleryName: 'xmew1dopsstampdcomputegallery001'
-     sharedrgName: sharedrgName
-     sharedsubscriptionid: sharedsubscriptionid
+     rgname: rgname
+     subscriptionid: subscriptionid
    }
    dependsOn:[dc,ade]
  }
