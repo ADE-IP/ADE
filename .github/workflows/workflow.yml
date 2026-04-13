@@ -41,6 +41,7 @@ jobs:
             --location australiaeast \
             --template-file customer-stamp/main.bicep \
             --parameters @customer-stamp/parameters.json
+            --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}
 
       # 🚀 Deploy Bicep
       - name: Deploy Bicep
