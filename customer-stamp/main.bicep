@@ -4,8 +4,6 @@ param devcentername string
 //param projectTeamName string
 param catalogName string
 param catalogRepoUri string
-param catalogTasksName string
-param catalogTasksRepoUri string
 param environmentName string
 param tags object
 param rgname string
@@ -114,12 +112,9 @@ module dc '../modules/devCenter/devCenter.bicep' = {
      devcentername: dc.name
      catalogName: catalogName
      catalogRepoUri: catalogRepoUri
-     catalogTasksName: catalogTasksName
-     catalogTasksRepoUri: catalogTasksRepoUri
      environmentName: environmentName
-     catalogRepoPat: catalogRepoPat
+     //catalogRepoPat: catalogRepoPat
      secretUri: kvSecret.outputs.secretUri
-     //adeProjectUser: devboxProjectUser
      
    }
  }
