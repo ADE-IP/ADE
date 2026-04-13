@@ -15,6 +15,7 @@ resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' = {
 
 //output systemAssignedIdentityPrincipalId string = dc.identity.principalId
 output dcnid string = dc.id
+output dcPrincipalId string = dc.identity.principalId
 
  resource dcDiags 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
    name: dc.name

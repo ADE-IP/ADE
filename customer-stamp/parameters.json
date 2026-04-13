@@ -46,9 +46,6 @@
     },
     "catalogRepoPat": {
       "value": "REPLACE_WITH_SECURE_PAT"
-    },
-    "subscriptionid": {
-      "value": "250f62f2-46bc-4a3d-b362-d04ec87c9285"
     }
   }
 }

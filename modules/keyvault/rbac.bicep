@@ -1,32 +1,26 @@
-//Assigns the Devcenter identity the permission to read secrets
-param keyVaultName string
-param rgname string
-param subscriptionid string
-param managedid string = 'Computegalleryid'
-//param userAssignedIdentityId string 
+// Assigns the DevCenter identity permission to read secrets from Key Vault
 
+param keyVaultName string
+param principalId string
+
+// Existing Key Vault
 resource kv 'Microsoft.KeyVault/vaults@2021-11-01-preview' existing = {
   name: keyVaultName
 }
 
-resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
-  scope: resourceGroup(subscriptionid,rgname)
-  name: managedid
-}
-//output userAssignedIdentityId string = managedIdentity.properties.principalId
+// Built-in role: Key Vault Secrets User
+var keyVaultSecretsUserRole = subscriptionResourceId(
+  'Microsoft.Authorization/roleDefinitions',
+  '4633458b-17de-408a-b874-0445c86b69e6'
+)
 
-var keyVaultSecretsUserRole = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
-
-resource rbacSecretUserSp 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+// Role Assignment to DevCenter SystemAssigned Identity
+resource rbacSecretUser 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(kv.id, principalId, keyVaultSecretsUserRole)
   scope: kv
-  name: guid(kv.id, keyVaultSecretsUserRole)
   properties: {
     roleDefinitionId: keyVaultSecretsUserRole
+    principalId: principalId
     principalType: 'ServicePrincipal'
-    principalId: managedIdentity.properties.principalId
   }
 }
-
-
-
-

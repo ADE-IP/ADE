@@ -13,7 +13,6 @@ param akvName string
 param law string
 param vnetname string
 param addressPrefix string
-param subscriptionid string
 
 @secure()
 @description('A PAT token is required, even for public repos')
@@ -82,18 +81,17 @@ module rg '../modules/resource-group/deploy.bicep' = {
    }
  }
 
- module rbac '../modules/keyvault/rbac.bicep' = {
-   scope: resourceGroup(rgname)
-   name: '${deployment().name}-managedId-rbac'
-   params: {
-     keyVaultName: kv.outputs.keyVaultName
-     rgname: rgname
-     subscriptionid: subscriptionid
-   }
-   dependsOn: [
+module rbac '../modules/keyvault/rbac.bicep' = {
+  scope: resourceGroup(rgname)
+  name: '${deployment().name}-managedId-rbac'
+  params: {
+    keyVaultName: kv.outputs.keyVaultName
+    principalId: dc.outputs.dcPrincipalId
+  }
+  dependsOn: [
     dc
-   ]
- }
+  ]
+}
 
 
 module dc '../modules/devCenter/devCenter.bicep' = {
