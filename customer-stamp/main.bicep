@@ -101,10 +101,8 @@ module dc '../modules/devCenter/devCenter.bicep' = {
   name: devcentername
   params: {
     devcentername: devcentername
-    rgname: rgname
     location: location
     law: law
-    subscriptionid: subscriptionid
     //type: type
     //existingImageGalleryName: existingImageGalleryName
   }

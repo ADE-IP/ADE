@@ -2,9 +2,6 @@ param location string = resourceGroup().location
 //param type string = 'SystemAssigned'
 param devcentername string
 param law string
-param rgname string
-param subscriptionid string
-param userAssignedIdentityId string = '/subscriptions/${subscriptionid}/resourcegroups/${rgname}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/Computegalleryid'
 
 
 resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' = {
@@ -12,10 +9,7 @@ resource dc 'Microsoft.DevCenter/devcenters@2022-11-11-preview' = {
   location: location
   identity: {
     //type: 'SystemAssigned, UserAssigned'
-      type: 'UserAssigned'
-    userAssignedIdentities: {
-      '${userAssignedIdentityId}': {}
-       }
+      type: 'SystemAssigned'
   }
 }
 
