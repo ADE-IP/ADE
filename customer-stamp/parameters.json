@@ -21,13 +21,7 @@
       "value": "catalog"
     },
     "catalogRepoUri": {
-      "value": "https://github.com/avl-sdv/DevOpsPilot.SiL.Workflows.git"
-    },
-    "catalogTasksName": {
-      "value": "CustomizationTasksCatalog"
-    },
-    "catalogTasksRepoUri": {
-      "value": "https://github.com/avl-sdv/DevOpsPilot.DevBox.CustomizationTasksCatalog.git"
+      "value": "https://github.com/depriya/testjustcourt.git"
     },
     "environmentName": {
       "value": "sandbox"
