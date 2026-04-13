@@ -20,8 +20,8 @@ resource catalog 'Microsoft.DevCenter/devcenters/catalogs@2022-11-11-preview' = 
     gitHub: {
       uri: catalogRepoUri
       branch: 'main'
-      secretIdentifier: secretUri
       path: '/environment'
+      secretIdentifier: empty(secretUri) ? null : secretUri
     }
   }
 }
