@@ -13,11 +13,6 @@ param akvName string
 param law string
 param vnetname string
 param addressPrefix string
-param privateDnsZoneName string
-param DNSlocation string = 'global'
-param privateEndpointName string
-param privateLinkServiceId string
-param privateDnsRecordName string
 param subscriptionid string
 
 @secure()
@@ -132,28 +127,7 @@ module dc '../modules/devCenter/devCenter.bicep' = {
      
    }
  }
- module privateDnsZone '../modules/private-dns-zone/private_dns_zone.bicep' = {
-  scope: resourceGroup(rgname)
-  name: 'privateDnsZone'
-  params: {
-    privateDnsZoneName: privateDnsZoneName
-    DNSlocation: DNSlocation
-    vnetid: vnet.outputs.vnetId
-    privateEndpointName: privateEndpointName
-    privateDnsRecordName: privateDnsRecordName
-  }
-  dependsOn:[privateendpoint]
-}
-module privateendpoint '../modules/private_endpoint/deploy.bicep' = {
-  scope: resourceGroup(rgname)
-  name: 'privateendpoint'
-  params: {
-    privateEndpointName: privateEndpointName
-    location: location
-    privateLinkServiceId: privateLinkServiceId
-    subnetId: vnet.outputs.subnetResourceIds[1]
-  }
-}
+
 
 //  //module project '../modules/dcProject/dcProject.bicep' = {
 //  scope: resourceGroup(rgname)

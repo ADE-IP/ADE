@@ -47,20 +47,8 @@
     "catalogRepoPat": {
       "value": "REPLACE_WITH_SECURE_PAT"
     },
-    "privateDnsZoneName": {
-      "value": "avl.lnk"
-    },
     "subscriptionid": {
       "value": "250f62f2-46bc-4a3d-b362-d04ec87c9285"
-    },
-    "privateLinkServiceId": {
-      "value": "/subscriptions/250f62f2-46bc-4a3d-b362-d04ec87c928/resourceGroups/rg-jmpcourt-dev01/providers/Microsoft.Network/privateLinkServices/pls-ade-ip"
-    },
-    "privateEndpointName": {
-      "value": "pe-license-dev01"
-    },
-    "privateDnsRecordName": {
-      "value": "license"
     }
   }
 }
