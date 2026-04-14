@@ -140,6 +140,22 @@ execute_command_exit_on_failure "$command"
 project_environment_type_object_id=$(eval "$command")
 echo "Created Project Environment Type with Object ID: $project_environment_type_object_id"
 
+echo "Assigning Contributor role to Project Environment Type identity"
+for i in {1..10}
+do
+  command="az role assignment create \
+    --assignee-object-id \"$project_environment_type_object_id\" \
+    --assignee-principal-type ServicePrincipal \
+    --role \"Contributor\" \
+    --scope \"/subscriptions/$TARGET_SUBSCRIPTION_ID\""
+  if eval "$command"; then
+    echo "Role assignment succeeded"
+    break
+  fi
+  echo "Waiting for identity propagation... retry $i"
+  sleep 15
+done
+
 echo "Assigning Contributor role to the Project Environment Type Object ID on the subscription"
 clear_command_variables
 command="az role assignment create --role \"Contributor\" --assignee-object-id $project_environment_type_object_id --scope \"/subscriptions/$TARGET_SUBSCRIPTION_ID\""
