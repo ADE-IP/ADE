@@ -36,7 +36,7 @@ ENVIRONMENT_DEFINITION_NAME="VirtualMachine" # Folder name where IaC template an
 ENVIRONMENT_TYPE="sandbox"
 PROJECT_ADMIN_ID=$(az account get-access-token --query "accessToken" -o tsv | jq -R -r 'split(".") | .[1] | @base64d | fromjson | .oid')
 echo "Object ID of the service principal or managed identity: $PROJECT_ADMIN_ID"
-DEPLOYMENT_ENVIRONMENTS_USER="shivalipriya@gmail.com"
+$DEPLOYMENT_USER_OBJECT_ID="df0378a9-7039-4686-9591-9fcc42b9e34d"
 PROJECT="adeproject"
 description="This is my first project"
 TARGET_SUBSCRIPTION_ID="250f62f2-46bc-4a3d-b362-d04ec87c9285"
@@ -178,11 +178,15 @@ command="az role assignment create --assignee \"$PROJECT_ADMIN_ID\" --role \"Dev
 execute_command_exit_on_failure "$command"
 echo "Assigned Dev Center Project Admin role to $PROJECT_ADMIN_ID"
 
-echo "Assigning Deployment Environments User role to $DEPLOYMENT_ENVIRONMENTS_USER"
+echo "Assigning Deployment Environments User role"
 clear_command_variables
-command="az role assignment create --assignee \"$DEPLOYMENT_ENVIRONMENTS_USER\" --role \"Deployment Environments User\" --scope \"/subscriptions/$TARGET_SUBSCRIPTION_ID\""
+command="az role assignment create \
+  --assignee-object-id \"$DEPLOYMENT_USER_OBJECT_ID\" \
+  --assignee-principal-type User \
+  --role \"Deployment Environments User\" \
+  --scope \"/subscriptions/$TARGET_SUBSCRIPTION_ID\""
 execute_command_exit_on_failure "$command"
-echo "Assigned Deployment Environments User role to $DEPLOYMENT_ENVIRONMENTS_USER"
+echo "Assigned Deployment Environments User role to object ID: $DEPLOYMENT_USER_OBJECT_ID"
 #endregion Assign Dev Center Project Admin and Deployment Environments User Roles
 
 #region Create Dev Environment
