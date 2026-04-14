@@ -125,7 +125,16 @@ echo "Assigned User Access Administrator role to the Managed Identity Object ID 
 #region Create Environment Type for the Project
 echo "Creating Project Environment Type"
 clear_command_variables
-command="az devcenter admin project-environment-type create -n \"$ENVIRONMENT_TYPE\" --project \"$PROJECT\" --identity-type \"SystemAssigned\" --roles \"{\\\"$owner_role_id\\\":{}}\" --deployment-target-id \"/subscriptions/$TARGET_SUBSCRIPTION_ID\" --status Enabled --query 'identity.principalId' --output tsv"
+command="az devcenter admin project-environment-type create \
+  --name \"$ENVIRONMENT_TYPE\" \
+  --project \"$PROJECT\" \
+  --resource-group \"$RESOURCE_GROUP\" \
+  --identity-type \"SystemAssigned\" \
+  --roles \"{\\\"$owner_role_id\\\":{}}\" \
+  --deployment-target-id \"/subscriptions/$TARGET_SUBSCRIPTION_ID\" \
+  --status Enabled \
+  --query 'identity.principalId' \
+  --output tsv"
 project_environment_type_object_id=""
 execute_command_exit_on_failure "$command"
 project_environment_type_object_id=$(eval "$command")
