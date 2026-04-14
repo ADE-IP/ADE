@@ -43,7 +43,7 @@ TARGET_SUBSCRIPTION_ID="250f62f2-46bc-4a3d-b362-d04ec87c9285"
 MANAGED_ID="umidc"
 RESOURCE_GROUP="rg-jmpcourt-dev01"
 DEV_CENTER_NAME="dc-jmpcourt-dev01"
-ENVIRONMENT_NAME="sandbox"
+ENVIRONMENT_NAME="sandbox-$(date +%s)"
 KEY_VAULT_NAME="akv-ade-ip"
 
 #vm specific parameters
