@@ -1,0 +1,21 @@
+name: Run ADE Script
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-ade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Make ade.sh executable
+        run: chmod +x ./customer-stamp/ade.sh
+
+      - name: Run ade.sh
+        run: ./customer-stamp/ade.sh
