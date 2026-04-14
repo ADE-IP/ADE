@@ -1,4 +1,4 @@
-name: Run ADE Script
+name: Deploy ADE via Script
 
 on:
   push:
@@ -6,16 +6,35 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write   # ✅ REQUIRED for OIDC
+  contents: read
+
 jobs:
-  run-ade:
+  deploy:
+    name: Deploy Bicep via ade.sh
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # 🔐 Azure Login using OIDC (no client secret)
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # ✅ (Optional but recommended) Set subscription explicitly
+      - name: Set subscription
+        run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # 🛠️ Ensure script is executable
       - name: Make ade.sh executable
         run: chmod +x ./customer-stamp/ade.sh
 
-      - name: Run ade.sh
+      # 🚀 Run your script
+      - name: Run ADE script
         run: ./customer-stamp/ade.sh
