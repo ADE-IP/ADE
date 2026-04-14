@@ -45,6 +45,26 @@ RESOURCE_GROUP="rg-jmpcourt-dev01"
 DEV_CENTER_NAME="dc-jmpcourt-dev01"
 ENVIRONMENT_NAME="sandbox"
 KEY_VAULT_NAME="akv-ade-ip"
+
+#vm specific parameters
+IMAGEPUBLISHER="MicrosoftWindowsServer"
+IMAGEOFFER="WindowsServer"
+IMAGESKU="2022-datacenter"
+#IMAGE_REFERENCE="/subscriptions/SUBID/resourceGroups/myImageRG/providers/Microsoft.Compute/galleries/myGallery/images/ubuntu-server-image" - IF YOU HAVE IMAGE IN COMPUTE GALLERY
+LOCATION="australiaeast"
+USE_EXISTING_VNET="true"
+VNET_NAME="vnet-jmpcourt-dev01"
+VNET_RG="network-rg"
+SUBNET_NAME="vnet-jmpcourt-dev01-subnet"
+VM_NAME="dev-vm-01"
+NIC_NAME="dev-vm-01-nic"
+NIC_IP_CONFIG_NAME="ipconfig1"
+VM_SIZE="Standard_D2ps_v5"
+OS_DISK_TYPE="StandardSSD_LRS"
+OS_DISK_DELETE_OPTION="Delete"
+VM_ZONE="1"
+NIC_DELETE_OPTION="Delete"
+
 #endregion Declare Constants
 
 #region Install Azure Dev Center extension
@@ -201,7 +221,9 @@ command="az devcenter dev environment create \
 --catalog-name \"$DEV_CENTER_CATALOG_NAME\" \
 --environment-definition-name \"$ENVIRONMENT_DEFINITION_NAME\" \
 --parameters \
-imageReference=\"$IMAGE_REFERENCE\" \
+imagePublisher=\"$IMAGEPUBLISHER\" \
+imageOffer=\"$IMAGEOFFER\" \
+imageSku=\"$IMAGESKU\" \
 location=\"$LOCATION\" \
 useExistingVNet=\"$USE_EXISTING_VNET\" \
 virtualNetworkName=\"$VNET_NAME\" \
