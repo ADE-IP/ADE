@@ -68,7 +68,10 @@ echo "Got Subscription Owner Role ID: $owner_role_id"
 #region Get Dev Center ID
 echo "Getting Azure Dev Center Resource ID"
 clear_command_variables
-command="az devcenter admin devcenter show -n \"$DEV_CENTER_NAME\" --query id -o tsv"
+command="az devcenter admin devcenter show \
+  --name \"$DEV_CENTER_NAME\" \
+  --resource-group \"$RESOURCE_GROUP\" \
+  --query id -o tsv"
 dev_center_id=""
 execute_command_exit_on_failure "$command"
 dev_center_id=$(eval "$command")
