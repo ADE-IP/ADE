@@ -99,7 +99,11 @@ echo "Got Managed Identity Object ID: $managed_identity_object_id"
 #region Create Project in Dev Center
 echo "Creating Project in Azure Dev Center"
 clear_command_variables
-command="az devcenter admin project create -n \"$PROJECT\" --description \"$description\" --dev-center-id \"$dev_center_id\""
+command="az devcenter admin project create \
+  --name \"$PROJECT\" \
+  --resource-group \"$RESOURCE_GROUP\" \
+  --description \"$description\" \
+  --dev-center-id \"$dev_center_id\""
 execute_command_exit_on_failure "$command"
 echo "Project created successfully!"
 #endregion Create Project in Dev Center
