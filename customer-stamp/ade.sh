@@ -213,6 +213,10 @@ echo "Assigned Deployment Environments User role to object ID: $DEPLOYMENT_USER_
 echo "Creating Dev Environment"
 clear_command_variables
 
+#region Create Dev Environment
+echo "Creating Dev Environment"
+clear_command_variables
+
 command="az devcenter dev environment create \
 --environment-name \"$ENVIRONMENT_NAME\" \
 --environment-type \"$ENVIRONMENT_TYPE\" \
@@ -221,22 +225,24 @@ command="az devcenter dev environment create \
 --catalog-name \"$DEV_CENTER_CATALOG_NAME\" \
 --environment-definition-name \"$ENVIRONMENT_DEFINITION_NAME\" \
 --parameters \
-imagePublisher=\"$IMAGEPUBLISHER\" \
-imageOffer=\"$IMAGEOFFER\" \
-imageSku=\"$IMAGESKU\" \
-location=\"$LOCATION\" \
-useExistingVNet=\"$USE_EXISTING_VNET\" \
-virtualNetworkName=\"$VNET_NAME\" \
-virtualNetworkResourceGroupName=\"$VNET_RG\" \
-networkInterfaceName=\"$NIC_NAME\" \
-networkInterfaceIPConfigurationName=\"$NIC_IP_CONFIG_NAME\" \
-networkInterfaceIPConfigurationSubnetName=\"$SUBNET_NAME\" \
-virtualMachineName=\"$VM_NAME\" \
-virtualMachineSize=\"$VM_SIZE\" \
-osDiskType=\"$OS_DISK_TYPE\" \
-osDiskDeleteOption=\"$OS_DISK_DELETE_OPTION\" \
-virtualMachineZone=\"$VM_ZONE\" \
-nicDeleteOption=\"$NIC_DELETE_OPTION\""
+\"imagePublisher=$IMAGEPUBLISHER\" \
+\"imageOffer=$IMAGEOFFER\" \
+\"imageSku=$IMAGESKU\" \
+\"location=$LOCATION\" \
+\"useExistingVNet=$USE_EXISTING_VNET\" \
+\"virtualNetworkName=$VNET_NAME\" \
+\"virtualNetworkResourceGroupName=$VNET_RG\" \
+\"networkInterfaceName=$NIC_NAME\" \
+\"networkInterfaceIPConfigurationName=$NIC_IP_CONFIG_NAME\" \
+\"networkInterfaceIPConfigurationSubnetName=$SUBNET_NAME\" \
+\"virtualMachineName=$VM_NAME\" \
+\"virtualMachineSize=$VM_SIZE\" \
+\"osDiskType=$OS_DISK_TYPE\" \
+\"osDiskDeleteOption=$OS_DISK_DELETE_OPTION\" \
+\"virtualMachineZone=$VM_ZONE\" \
+\"nicDeleteOption=$NIC_DELETE_OPTION\""
+
 execute_command_exit_on_failure "$command"
+
 echo "Created Dev Environment: $ENVIRONMENT_NAME"
 #endregion Create Dev Environment
