@@ -33,7 +33,7 @@ jobs:
 
       # 🛠️ Ensure script is executable
       - name: Make ade.sh executable
-        run: chmod +x ./customer-stamp/ade.sh
+        run: chmod +x ./ADE/ade.sh
 
       # 🚀 Run your script
       - name: Run ADE script
