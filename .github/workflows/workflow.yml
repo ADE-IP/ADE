@@ -34,21 +34,21 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # 🔍 Optional - Validate before deploy
+      #  Optional - Validate before deploy
       - name: Validate Bicep
         run: |
           az deployment sub validate \
             --location australiaeast \
-            --template-file customer-stamp/main.bicep \
-            --parameters @customer-stamp/parameters.json \
+            --template-file ADE/main.bicep \
+            --parameters @ADE/parameters.json
             --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}
 
-      # 🚀 Deploy Bicep
+      #  Deploy Bicep
       - name: Deploy Bicep
         run: |
           az deployment sub create \
             --name main-${{ github.run_id }} \
             --location australiaeast \
-            --template-file customer-stamp/main.bicep \
-            --parameters @customer-stamp/parameters.json \
+            --template-file ADE/main.bicep \
+            --parameters @ADE/parameters.json \
             --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}

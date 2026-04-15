@@ -12,6 +12,9 @@ param law string
 param vnetname string
 param addressPrefix string
 
+// ✅ ADDED (UAI param)
+param uaiName string
+
 @secure()
 @description('A PAT token is required, even for public repos')
 param catalogRepoPat string
@@ -70,7 +73,7 @@ module kvSecret '../modules/keyvault/keyvaultsecret.bicep' = if (!empty(catalogR
   name: '${deployment().name}-keyvault-patSecret'
   params: {
     keyVaultName: kv.outputs.keyVaultName
-    secretName: 'catalog-pat'   // ✅ fixed (no dynamic confusion)
+    secretName: 'catalog-pat'
     secretValue: catalogRepoPat
   }
 }
@@ -83,6 +86,7 @@ module dc '../modules/devCenter/devCenter.bicep' = {
     devcentername: devcentername
     location: location
     law: law
+    uaiName: uaiName   // ✅ ADDED
   }
 }
 
@@ -108,8 +112,6 @@ module ade '../modules/catalog/catalog.bicep' = {
     catalogName: catalogName
     catalogRepoUri: catalogRepoUri
     environmentName: environmentName
-
-    // ✅ FIXED (no BCP318 issue)
     secretUri: !empty(catalogRepoPat) ? kvSecret.outputs.secretUri : ''
   }
 }

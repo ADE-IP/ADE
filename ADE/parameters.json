@@ -37,6 +37,10 @@
         "infra": "customer",
         "env": "dev"
       }
+    },
+    "uaiName": {
+      "value": "dc-jmpcourt-uai"
     }
+
   }
 }
