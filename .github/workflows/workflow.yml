@@ -40,7 +40,7 @@ jobs:
           az deployment sub validate \
             --location australiaeast \
             --template-file ADE/main.bicep \
-            --parameters @ADE/parameters.json
+            --parameters @ADE/parameters.json \
             --parameters catalogRepoPat=${{ secrets.CATALOG_PAT }}
 
       #  Deploy Bicep
