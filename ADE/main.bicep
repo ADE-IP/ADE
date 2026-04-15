@@ -11,8 +11,6 @@ param akvName string
 param law string
 param vnetname string
 param addressPrefix string
-
-// ✅ ADDED (UAI param)
 param uaiName string
 
 @secure()
@@ -86,7 +84,7 @@ module dc '../modules/devCenter/devCenter.bicep' = {
     devcentername: devcentername
     location: location
     law: law
-    uaiName: uaiName   // ✅ ADDED
+    uaiName: uaiName  
   }
 }
 

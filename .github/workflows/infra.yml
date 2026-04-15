@@ -26,7 +26,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 🔐 Azure Login (OIDC)
+      # Azure Login (OIDC)
       - name: Azure Login
         uses: azure/login@v2
         with:

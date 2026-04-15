@@ -36,15 +36,15 @@ ENVIRONMENT_DEFINITION_NAME="VirtualMachine" # Folder name where IaC template an
 ENVIRONMENT_TYPE="sandbox"
 PROJECT_ADMIN_ID=$(az account get-access-token --query "accessToken" -o tsv | jq -R -r 'split(".") | .[1] | @base64d | fromjson | .oid')
 echo "Object ID of the service principal or managed identity: $PROJECT_ADMIN_ID"
-DEPLOYMENT_USER_OBJECT_ID="df0378a9-7039-4686-9591-9fcc42b9e34d" #Object Id of user who can enables creating, using, and managing environments.
+DEPLOYMENT_USER_OBJECT_ID="df0378a9-xxxx-xxxx-xxxx-xxxxxxxxx" #Object Id of user who can enables creating, using, and managing environments.
 PROJECT="adeproject"
 description="This is my first project"
-TARGET_SUBSCRIPTION_ID="250f62f2-46bc-4a3d-b362-d04ec87c9285"
-MANAGED_ID="dc-jmpcourt-uai"
-RESOURCE_GROUP="rg-jmpcourt-dev01"
-DEV_CENTER_NAME="dc-jmpcourt-dev01"
+TARGET_SUBSCRIPTION_ID="250f62f2-xxxx-4a3d-xxxx-xxxxxxxxx"
+MANAGED_ID="uai-ade-dev01"
+RESOURCE_GROUP="rg-ade-dev01"
+DEV_CENTER_NAME="dc-ade-dev01"
 ENVIRONMENT_NAME="sandbox-$(date +%s)"
-KEY_VAULT_NAME="akv-ade-ip"
+KEY_VAULT_NAME="kv-ade-dev01"
 
 #vm specific parameters
 IMAGEPUBLISHER="MicrosoftWindowsServer"
@@ -53,11 +53,11 @@ IMAGESKU="2022-datacenter"
 #IMAGE_REFERENCE="/subscriptions/SUBID/resourceGroups/myImageRG/providers/Microsoft.Compute/galleries/myGallery/images/ubuntu-server-image" - IF YOU HAVE IMAGE IN COMPUTE GALLERY
 LOCATION="australiaeast"
 USE_EXISTING_VNET="true"
-VNET_NAME="vnet-jmpcourt-dev01"
-VNET_RG="rg-jmpcourt-dev01"
-SUBNET_NAME="vnet-jmpcourt-dev01-subnet"
-VM_NAME="dev-vm-01"
-NIC_NAME="dev-vm-01-nic"
+VNET_NAME="vnet-ade-dev01" #existing vnet created during infra deployment
+VNET_RG="rg-ade-dev01"
+SUBNET_NAME="vnet-ade-dev01-subnet" #existing subnet created during infra deployment
+VM_NAME="vm-ade-dev01"
+NIC_NAME="vm-ade-nic"
 NIC_IP_CONFIG_NAME="ipconfig1"
 VM_SIZE="Standard_B2s"
 OS_DISK_TYPE="StandardSSD_LRS"
@@ -209,10 +209,11 @@ execute_command_exit_on_failure "$command"
 echo "Assigned Deployment Environments User role to object ID: $DEPLOYMENT_USER_OBJECT_ID"
 #endregion Assign Dev Center Project Admin and Deployment Environments User Roles
 
-#region Create Dev Environment
-echo "Creating Dev Environment"
-clear_command_variables
+#---------------------------------------------------------------------------------------------------------------------------#
 
+ #Deployment environment user can create ADE via "https://devportal.microsoft.com/" Please check this for manual deployment.
+
+#----------------------------------------------------------------------------------------------------------------------------#
 
 #region Create Dev Environment
 echo "Creating Dev Environment"
@@ -240,7 +241,7 @@ cat > params.json <<EOF
 EOF
 
 # -----------------------------
-# Create Dev Environment
+# Create ADE via cli
 # -----------------------------
 command="az devcenter dev environment create \
 --environment-name \"$ENVIRONMENT_NAME\" \

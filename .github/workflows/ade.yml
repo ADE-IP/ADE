@@ -1,4 +1,4 @@
-name: Deploy ADE via Script
+name: Deploy ADE via Shell Script
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write   # ✅ REQUIRED for OIDC
+  id-token: write
   contents: read
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 🔐 Azure Login using OIDC (no client secret)
+      # Azure Login using OIDC (no client secret)
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -27,14 +27,14 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # ✅ (Optional but recommended) Set subscription explicitly
+      # (Optional but recommended) Set subscription explicitly
       - name: Set subscription
         run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # 🛠️ Ensure script is executable
+      # Ensure script is executable
       - name: Make ade.sh executable
         run: chmod +x ./ADE/ade.sh
 
-      # 🚀 Run your script
+      # Run your script
       - name: Run ADE script
         run: ./ADE/ade.sh

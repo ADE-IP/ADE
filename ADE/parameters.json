@@ -3,31 +3,31 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "rgname": {
-      "value": "rg-jmpcourt-dev01"
+      "value": "rg-ade-dev01"
     },
     "vnetname": {
-      "value": "vnet-jmpcourt-dev01"
+      "value": "vnet-ade-dev01"
     },
     "akvName": {
-      "value": "akv-ade-ip"
+      "value": "kv-ade-dev01"
     },
     "addressPrefix": {
       "value": "10.10.0.0/16"
     },
     "devcentername": {
-      "value": "dc-jmpcourt-dev01"
+      "value": "dc-ade-dev01"
     },
     "catalogName": {
       "value": "catalog"
     },
     "catalogRepoUri": {
-      "value": "https://github.com/depriya/testjustcourt.git"
+      "value": "https://github.com/xxxxx.git" 
     },
     "environmentName": {
       "value": "sandbox"
     },
     "law": {
-      "value": "law-jmpcourt-dev01"
+      "value": "law-ade-dev01"
     },
     "location": {
       "value": "australiaeast"
@@ -39,7 +39,7 @@
       }
     },
     "uaiName": {
-      "value": "dc-jmpcourt-uai"
+      "value": "uai-ade-dev01"
     }
 
   }
