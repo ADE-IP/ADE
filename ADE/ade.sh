@@ -36,7 +36,7 @@ ENVIRONMENT_DEFINITION_NAME="VirtualMachine" # Folder name where IaC template an
 ENVIRONMENT_TYPE="sandbox"
 PROJECT_ADMIN_ID=$(az account get-access-token --query "accessToken" -o tsv | jq -R -r 'split(".") | .[1] | @base64d | fromjson | .oid')
 echo "Object ID of the service principal or managed identity: $PROJECT_ADMIN_ID"
-DEPLOYMENT_USER_OBJECT_ID="df0378a9-xxxxxxxxx-xxxxxxxx" #Object Id of user who can enables creating, using, and managing environments.
+DEPLOYMENT_USER_OBJECT_ID="df0378a9-7039-4686-9591-9fcc42b9e34d" #Object Id of user who can enables creating, using, and managing environments.
 PROJECT="adeproject"
 description="This is my first project"
 TARGET_SUBSCRIPTION_ID="250f62f2-46bc-4a3d-b362-d04ec87c9285"
